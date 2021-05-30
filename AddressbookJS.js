@@ -19,44 +19,46 @@ class Contact {
 
     //constructor
     constructor(firstName, lastName, address, city, state, zip, phoneNumber, email) {
-        if (!NAME_REGEX_PATTERN.test(firstName)) {
-            console.log('Please enter valid firstname.');
-        } else {
+
+        if (!NAME_REGEX_PATTERN.test(firstName)) throw 'Please enter valid firstname.'
+
+
+        {
             this.firstName = firstName;
         }
-        if (!NAME_REGEX_PATTERN.test(lastName)) {
-            console.log('Please enter valid lastname.');
-        } else {
+        if (!NAME_REGEX_PATTERN.test(lastName)) throw 'Please enter valid lastname.'
+
+        {
             this.lastName = lastName;
         }
-        if (!ADDRESS_REGEX_PATTERN.test(address)) {
-            console.log('Please enter valid address.');
-        } else {
+        if (!ADDRESS_REGEX_PATTERN.test(address)) throw 'Please enter valid address.'
+
+        {
             this.address = address;
         }
-        if (!ADDRESS_REGEX_PATTERN.test(city)) {
-            console.log('Please enter valid city.');
-        } else {
+        if (!ADDRESS_REGEX_PATTERN.test(city)) throw 'Please enter valid city.'
+
+        {
             this.city = city;
         }
-        if (!ADDRESS_REGEX_PATTERN.test(state)) {
-            console.log('Please enter valid state.');
-        } else {
+        if (!ADDRESS_REGEX_PATTERN.test(state)) throw 'Please enter valid state.'
+
+        {
             this.state = state;
         }
-        if (!PINCODE_REGEX_PATTERN.test(zip)) {
-            console.log('Please enter valid pincode.');
-        } else {
+        if (!PINCODE_REGEX_PATTERN.test(zip)) throw 'Please enter valid pincode.'
+
+        {
             this.zip = zip;
         }
-        if (!PHONE_NUMBER_PATTERN.test(phoneNumber)) {
-            console.log('Please enter valid phone number.');
-        } else {
+        if (!PHONE_NUMBER_PATTERN.test(phoneNumber)) throw 'Please enter valid phone number.'
+
+        {
             this.phoneNumber = phoneNumber;
         }
-        if (!EMAIL_REGEX_PATTERN.test(email)) {
-            console.log('Please enter valid email ID.');
-        } else {
+        if (!EMAIL_REGEX_PATTERN.test(email)) throw 'Please enter valid email ID.'
+
+        {
             this.email = email;
         }
     }
@@ -187,13 +189,13 @@ function countByCityState(place, countChoice) {
 }
 
 //array to store contacts
-const addressBookArray = new Array();
+let addressBookArray = new Array();
 let countEntry = 0;
 do {
     console.log("\nPress: 1) Add Contact 2) Edit Contact 3) View Contact");
     console.log("\t4) Delete Contact 5) Number of Contacts");
     console.log("\t6) Search contact by city or state 7) View contact by city or state");
-    console.log("\t8) Count Contacts by city or state 0)Exit: ");
+    console.log("\t8) Count Contacts by city or state 9) Sort By Name 0)Exit: ");
     if (countEntry == 1) {
         addContacts();
     }
@@ -205,7 +207,8 @@ do {
         findContact(userData);
     }
     if (countEntry == 3) {
-        console.log(addressBookArray + "\n");
+        for (let i = 0; i < addressBookArray.length; i++)
+            console.log(addressBookArray[i].toString(), "\n");
     }
     if (countEntry == 4) {
         deletContact();
@@ -254,5 +257,10 @@ do {
                 countByCityState(state, 2);
                 break;
         }
+    }
+    if (countEntry == 9) {
+        addressBookArray.sort();
+        for (let i = 0; i < addressBookArray.length; i++)
+            console.log(addressBookArray[i].toString(), "\n");
     }
 } while (countEntry != 0);
