@@ -175,14 +175,25 @@ function searchByCityState(place, choice) {
     console.log("Contact: ", contacts);
 }
 
+//count contact in city or state
+function countByCityState(place, countChoice) {
+    let contacts = new Array();
+    if (countChoice == 1) {
+        console.log("Contacts in " + place + " city are: ", addressBookArray.filter(contact => contact.city == place).reduce(contacts => contacts + 1, 0));
+    }
+    if (countChoice == 2) {
+        console.log("Contacts in " + place + " state are: ", addressBookArray.filter(contact => contact.state == place).reduce(contacts => contacts + 1, 0));
+    }
+}
+
 //array to store contacts
 const addressBookArray = new Array();
 let countEntry = 0;
 do {
-    console.log("\nPress: 1) Add Contact 2) Edit Contact 3) View Contact ");
-    console.log("\t4) Delete Contact 5) Number of Contacts 6) Search contact by city or state ");
-    console.log("\t7) View contact by city or state 0)Exit: ");
-    countEntry = Number(prompt("Enter your choice: "));
+    console.log("\nPress: 1) Add Contact 2) Edit Contact 3) View Contact");
+    console.log("\t4) Delete Contact 5) Number of Contacts");
+    console.log("\t6) Search contact by city or state 7) View contact by city or state");
+    console.log("\t8) Count Contacts by city or state 0)Exit: ");
     if (countEntry == 1) {
         addContacts();
     }
@@ -227,6 +238,20 @@ do {
             case 2:
                 let state = prompt("Enter the state name: ");
                 searchByCityState(state, 2);
+                break;
+        }
+    }
+    if (countEntry == 8) {
+        console.log("1.) Count By City     2.) Count By State");
+        let countChoice = Number(prompt("Enter your choice: "));
+        switch (countChoice) {
+            case 1:
+                let city = prompt("Enter the city name: ");
+                countByCityState(city, 1);
+                break;
+            case 2:
+                let state = prompt("Enter the state name: ");
+                countByCityState(state, 2);
                 break;
         }
     }
