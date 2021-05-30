@@ -1,4 +1,4 @@
-console.log("Welcome To Addressbook System JavaScript Program");
+console.log("Welcome To Addressbook System JavaScript Program\n");
 const prompt = require('prompt-sync')();
 const NAME_REGEX_PATTERN = RegExp('^[A-Z]{1}[a-z]{2,}$');
 const ADDRESS_REGEX_PATTERN = RegExp('^[a-zA-z]{3,}$');
@@ -151,24 +151,35 @@ function findContact(userData) {
 }
 
 let deletContact = () => {
-    if (addressBookArray.length == 0) {
-        console.log("No contact in the list");
+        if (addressBookArray.length == 0) {
+            console.log("No contact in the list");
+        }
+        let deleteName = prompt("Enter contact firstname you want to delete: ");
+        let found = addressBookArray.find((contact) => contact.firstName == deleteName);
+        if (found == undefined) {
+            console.log("No such contact in Addressbook.");
+        } else {
+            addressBookArray = addressBookArray.filter((contacts) => contacts.firstName != deleteName);
+            console.log("Contact is deleleted in Addressbook.")
+        }
     }
-    let deleteName = prompt("Enter contact firstname you want to delete: ");
-    let found = addressBookArray.find((contact) => contact.firstName == deleteName);
-    if (found == undefined) {
-        console.log("No such contact in Addressbook.");
-    } else {
-        addressBookArray = addressBookArray.filter((contacts) => contacts.firstName != deleteName);
-        console.log("Contact is deleleted in Addressbook.")
+    //searching contact in city or state
+function searchByCityState(place, choice) {
+    let contacts = new Array();
+    if (choice == 1) {
+        contacts = addressBookArray.filter(contact => contact.city === place)
     }
+    if (choice == 2) {
+        contacts = addressBookArray.filter(contact => contact.state === place)
+    }
+    console.log("Contact found: ", contacts);
 }
 
 //array to store contacts
 let addressBookArray = new Array();
 let countEntry = 0;
 do {
-    countEntry = prompt("Press 1) Add Contact 2) Edit Contact 3) View Contact 4) Delete Contact 5) Number of Contacts 0) Exit: ");
+    countEntry = prompt("Press 1) Add Contact 2) Edit Contact 3) View Contact 4) Delete Contact \n\t5) Number of Contacts 6) search contact by city or state 0)Exit: ");
     if (countEntry == 1) {
         addContacts();
     }
@@ -187,5 +198,19 @@ do {
     }
     if (countEntry == 5) {
         console.log("Number of Contacts: " + addressBookArray.reduce(contacts => contacts + 1, 0));
+    }
+    if (countEntry == 6) {
+        console.log("1.) Search By City     2.) Search By State");
+        let choice = Number(prompt("Enter your choice: "));
+        switch (choice) {
+            case 1:
+                let city = prompt("Enter the city name: ");
+                searchByCityState(city, 1);
+                break;
+            case 2:
+                let state = prompt("Enter the state name: ");
+                searchByCityState(state, 2);
+                break;
+        }
     }
 } while (countEntry != 0);
