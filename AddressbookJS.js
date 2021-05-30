@@ -172,14 +172,17 @@ function searchByCityState(place, choice) {
     if (choice == 2) {
         contacts = addressBookArray.filter(contact => contact.state === place)
     }
-    console.log("Contact found: ", contacts);
+    console.log("Contact: ", contacts);
 }
 
 //array to store contacts
-let addressBookArray = new Array();
+const addressBookArray = new Array();
 let countEntry = 0;
 do {
-    countEntry = prompt("Press 1) Add Contact 2) Edit Contact 3) View Contact 4) Delete Contact \n\t5) Number of Contacts 6) search contact by city or state 0)Exit: ");
+    console.log("\nPress: 1) Add Contact 2) Edit Contact 3) View Contact ");
+    console.log("\t4) Delete Contact 5) Number of Contacts 6) Search contact by city or state ");
+    console.log("\t7) View contact by city or state 0)Exit: ");
+    countEntry = Number(prompt("Enter your choice: "));
     if (countEntry == 1) {
         addContacts();
     }
@@ -191,7 +194,7 @@ do {
         findContact(userData);
     }
     if (countEntry == 3) {
-        console.log(addressBookArray.toString() + "\n");
+        console.log(addressBookArray + "\n");
     }
     if (countEntry == 4) {
         deletContact();
@@ -203,6 +206,20 @@ do {
         console.log("1.) Search By City     2.) Search By State");
         let choice = Number(prompt("Enter your choice: "));
         switch (choice) {
+            case 1:
+                let city = prompt("Enter the city name: ");
+                searchByCityState(city, 1);
+                break;
+            case 2:
+                let state = prompt("Enter the state name: ");
+                searchByCityState(state, 2);
+                break;
+        }
+    }
+    if (countEntry == 7) {
+        console.log("1.) View By City     2.) View By State");
+        let choose = Number(prompt("Enter your choice: "));
+        switch (choose) {
             case 1:
                 let city = prompt("Enter the city name: ");
                 searchByCityState(city, 1);
